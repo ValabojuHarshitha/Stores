@@ -1,0 +1,15 @@
+<style>
+  #location_name {height: 30px;}
+</style>
+<div id="store_Search">
+	<%= form_tag customer_store_listing_path,:remote=>true do %>
+	<%= text_field_tag :location_name%>
+	<%= select_tag :radius, options_for_select( @radius.collect{|u| [u.radius,u.radius]})%>
+	<%= submit_tag "go",:class=>"btn"%>
+	<%end%>
+</div>
+
+<div id="locations_with_radius">
+
+</div>
+

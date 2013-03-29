@@ -1,0 +1,29 @@
+<script>
+
+    $(document).ready(function(){
+       for (var i=0;i<allVals.length;i++)
+       {
+             var a= '#' + allVals[i];
+            $(a).prop('checked', true);
+        }
+
+    });
+
+</script>
+
+<div id="cab">
+      <%@store_item.each do |item|%>
+          <%= check_box_tag  "#{item.id}","#{item.id}",false,:onChange=>"updateTextArea()" %> <%=item.id%>
+          <%#= check_box_tag 'item_ids[]',"#{item.id}",:onclick=>"$.ajax({url: '../customer/right_item_list',data: 'item_arry=' + value });" -%>
+          <%= item.item_name -%>
+
+      <%end%>
+
+</div>
+   <div id="all">
+     </div>
+<%#@category=Category.all%>
+<%#= select_tag "category_id", options_for_select(@category.collect{|u| [u.category_name,u.id] }),:prompt=>'select Categories',:onchange=>"$.ajax({url: '../customer/right_item_list',data: 'item_arry=' + value });"%>
+<!--http://stackoverflow.com/questions/786142/how-to-retrieve-checkboxes-values-in-jquery-->
+
+

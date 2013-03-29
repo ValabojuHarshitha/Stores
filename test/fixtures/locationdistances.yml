@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  location_id: 1
+  destination_id: 1
+  radius: 1.5
+
+two:
+  location_id: 1
+  destination_id: 1
+  radius: 1.5

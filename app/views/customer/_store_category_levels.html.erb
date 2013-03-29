@@ -1,0 +1,173 @@
+<!--
+<script type="text/javascript">
+    /*function store_category()
+     {
+     $("#category_menu").html("<%#= escape_javascript (render 'customer/user_stores')%>")
+     }*/
+    $(document).ready(function(){
+        $("#store_menu").click(function(){
+            $("#category_menu").toggle();
+            $("#category_menu").html("<%#= escape_javascript (render 'customer/user_stores')%>")
+        });
+    });
+</script>
+
+<style>
+    #menu_list li {
+        list-style: none;
+    }
+</style>
+<ul id="menu_list">
+  <li>My List</li>
+  <li>
+    <%#@store_list=CustomerStore.count_store_list(current_user)%>
+<%#if @store_list.blank?%>
+        My Store List(0)
+    <%#else%>
+        <div id="store_menu">  My Store List(<%#= @store_list.count %>) </div>
+
+        <div id="category_menu"></div>
+    <%#end%>
+  </li>
+  <li>My Purshared List</li>
+  <li>My Recent Ordered List</li>
+</ul>
+========================Code Change-------------------  -->
+
+
+<script>
+    $(document).ready(function()
+    {
+        $("#store_category > li > a").not(":first").find("+ ul").slideUp(1);
+        $("#store_category > li > a").click(function()
+        {
+            $(this).find("+ ul").slideToggle("fast");
+
+        });
+    });
+
+</script>
+
+<style>
+    #store_category li {
+        list-style: none;
+    }
+
+    #store_category, #store_category ul {
+        list-style: none outside none;
+        padding: 3px;
+    }
+    #store_category, #store_category ul {
+        list-style: none;
+    }
+    #store_category a {
+        color: #010101;
+        display: block;
+        font-weight: bold;
+        padding: 0.5em 1em;
+        text-decoration: none;
+        text-align: left;
+    }
+    #store_category ul a {
+        color: #666;
+        font-weight: normal;
+        text-decoration: none;
+        text-align: left !important;
+    }
+
+    #store_category ul a:hover {
+        text-decoration: underline;
+        border-color: #BBBBBB;
+        color: #711515;
+        background-image: -moz-linear-gradient(center top, #ffffff , #ECECEC );
+    }
+    table#listing .tr-even td {
+        color: #678197;
+        font-size: 13px;
+        font-weight: normal;
+        padding: 0.5em 0.5em !important;
+        text-align: center;
+    }
+</style>
+
+
+<div id="locations_with_radius">
+
+</div>
+<!-- =============================================qmr edit================== -->
+<span>
+<div style="width:400px;">
+  <%= @store_id %>
+  <%=@a%>kk
+  <%#=@store_category_type.inspect%>
+  <%@store_category_type.each do |cat_type|%>
+      <ul id="store_category">
+
+        <li>
+          <a xxx=""><%= cat_type['name']%> </a>
+
+          <ul id="store_category">
+
+            <li>
+              <%@category_store= StoreCategory.where(" store_id =#{cat_type['store_id']} AND category_type_id=#{cat_type['category_type_id']} AND parent_id IS NULL ").select('category_name, store_id,id') %>
+              <%@category_store.each do |cat_store|%>
+                  <a xxx=""><%=cat_store.category_name %></a>
+
+                  <ul id="store_category">
+                    <%@sub_category=StoreCategory.where("parent_id=#{cat_store.id} and store_id =#{cat_type['store_id']}").select("id,category_name")%>
+                    <li>
+                      <%@sub_category.each do |sub_cat|%>
+                         <!-- <a xxx=""><%#=sub_cat.category_name %></a>-->
+                          <%=link_to "#{sub_cat.category_name}",customer_item_list_path(:store_id=>cat_type['store_id'],:store_cat_id=>sub_cat.id),:remote=>true %>
+
+                      <%end%>
+                    </li>
+
+                  </ul>
+              <%end%>
+            </li>
+
+          </ul>
+
+        </li>
+
+
+      </ul>
+  <%end%>
+  <!-- ========================== -->
+
+</div>
+
+</span>
+
+
+<!--
+<div id="c_b">
+  <input type="checkbox" value="one_name" checked>
+  <input type="checkbox" value="one_name1">
+  <input type="checkbox" value="one_name2">
+</div>
+<textarea id="t"></textarea>
+
+<script>
+
+    function updateTextArea() {
+
+        var allVals = [];
+        $('#c_b :checked').each(function() {
+            allVals.push($(this).val());
+        });
+        $('#t').val(allVals)
+        alert(allVals);
+    }
+    $(function() {
+        $('#c_b input').click(updateTextArea);
+        updateTextArea();
+    });
+
+</script>-->
+
+
+
+
+

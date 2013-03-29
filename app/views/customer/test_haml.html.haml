@@ -1,0 +1,6 @@
+= form_tag('/customer/test_haml') do
+ - [1, 2, 3].each do |i|
+  = check_box_tag "accept#{i}"
+  = i
+  %br
+ = submit_tag

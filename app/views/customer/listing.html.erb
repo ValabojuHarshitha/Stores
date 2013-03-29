@@ -1,0 +1,27 @@
+<!--no store in ganianagar-->
+
+<div id="user_location">
+  <% @location=Location.user_location(current_user) %>
+  <%=@location[0].location_name%><%= current_user.location_id%>
+</div>
+<div class="alert"></div>
+<div id="get_stores_user">
+
+  <%= render 'customer/locationwise_user_stores_list'%>
+
+</div>
+
+<div id="item_list">
+
+
+</div>
+<div id="select_item_list">
+
+
+</div>
+<div id="my_list">
+
+
+</div>
+
+

@@ -1,0 +1,42 @@
+<style>
+  #total_value
+  {
+      margin: 6 90px;
+      font-size: large;
+      float :right;
+  }
+</style>
+ <div id="remove_list">
+   <% @tot=0%>
+   <!--<table>
+
+ <tr><td>select</td><td>Item</td><td>Item Price</td><td>Quantity</td><td>total Price</td></tr>-->
+   <%=form_tag customer_buy_path do %>
+       <%@search.each do |i|  %>
+           <%@it=Item.find(i.to_i)%>
+
+           <div id="list<%=i%>">
+
+             <tr>
+               <td><%#=check_box_tag "items#{i}","#{i}",false,:onclick=>"removeFormList()"%>
+                 <%= link_to "Remove","#",:onclick=>"removeFormList(#{i},#{@search})" %>
+               </td>
+               <td> <%=@it.item_name%></td>
+               <td> <%=@it.price%>  </td>
+               <%#%>  <% @tot=@it.price+@tot%>
+               <%@quantity= [1,2,3,4,5,6]%>
+               <td>   <%#=select_tag "quantity#{i}",options_for_select(@quantity.collect{|u| u}),:onchange=>"$.ajax({url: '../customer/quantity',data: 'quantity=' + value + '&price=' + #{@it.price} + '&item_id=' + #{i} })"%>
+                 <%=select_tag "quantity#{i}",options_for_select(@quantity.collect{|u| u}),:onchange=>"quantity_total(this.value,#{@it.price},#{i},#{@search})"%>
+               </td>
+               <div id="quantitys<%=i%>"><%=@it.price%></div>  </tr>
+           </div>
+       <%end%>
+       <tr> <td><%= submit_tag "Pay at Store",:name=>"pay_at_store" %></td>
+         <td><%= submit_tag "Pay Online",:name=>"pay_online" %></td>
+       </tr>
+
+   <%end%>
+   </table>
+   <div id="total_value"><%=@tot%></div>
+ </div>
+

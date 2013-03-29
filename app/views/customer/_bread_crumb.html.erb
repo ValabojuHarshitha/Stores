@@ -1,0 +1,51 @@
+<style>
+.dropdown-menu {
+    background-clip: padding-box;
+    background-color: #FFFFFF;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    border-radius: 6px 6px 6px 6px;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+    display: block;
+    float: left;
+    left: 0;
+    list-style: none outside none;
+    margin: 2px 0 0 500px;
+    min-width: 160px;
+    padding: 5px 0;
+    position: absolute;
+    top: 100%;
+    z-index: 1000;
+}
+
+.dropdown-submenu > .dropdown-menu {
+    border-radius: 0 6px 6px 6px;
+    left: 100%;
+    margin-left: -1px;
+    margin-top: -6px;
+    top: 0;
+    display:none;
+}
+</style> 
+
+<li><a href="#"><%=Location.find(params[:location_id]).location_name%> </a> <span class="divider">/</span></li>
+ <li><a href="#"><%=@store.store_name%></a> <span class="divider">/</span></li>
+    <li class="active">Data</li>
+
+ <div class="dropdown clearfix">
+                <ul aria-labelledby="dropdownMenu" role="menu" class="dropdown-menu">
+                 <li class="dropdown-submenu">
+                    <a href="#" tabindex="-1">More options</a>
+                    <ul class="dropdown-menu">
+                      <li><a href="#" tabindex="-1">Second level link</a></li>
+                      <li><a href="#" tabindex="-1">Second level link</a></li>
+                    </ul>
+                  </li>
+                  <li class="dropdown-submenu">
+                    <a href="#" tabindex="-1">third options</a>
+                    <ul class="dropdown-menu">
+                      <li><a href="#" tabindex="-1">third level link</a></li>
+                      <li><a href="#" tabindex="-1">third level link</a></li>
+                    </ul>
+                  </li>
+                </ul>
+              </div>

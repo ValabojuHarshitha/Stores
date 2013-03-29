@@ -1,0 +1,189 @@
+<!--
+<script type="text/javascript">
+    /*function store_category()
+     {
+     $("#category_menu").html("<%#= escape_javascript (render 'customer/user_stores')%>")
+     }*/
+    $(document).ready(function(){
+        $("#store_menu").click(function(){
+            $("#category_menu").toggle();
+            $("#category_menu").html("<%#= escape_javascript (render 'customer/user_stores')%>")
+        });
+    });
+</script>
+
+<style>
+    #menu_list li {
+        list-style: none;
+    }
+</style>
+<ul id="menu_list">
+  <li>My List</li>
+  <li>
+    <%#@store_list=CustomerStore.count_store_list(current_user)%>
+<%#if @store_list.blank?%>
+        My Store List(0)
+    <%#else%>
+        <div id="store_menu">  My Store List(<%#= @store_list.count %>) </div>
+
+        <div id="category_menu"></div>
+    <%#end%>
+  </li>
+  <li>My Purshared List</li>
+  <li>My Recent Ordered List</li>
+</ul>
+========================Code Change-------------------  -->
+
+
+<script>
+    $(document).ready(function()
+    {
+        $("#menulist > li > a").not(":first").find("+ ul").slideUp(1);
+        $("#menulist > li > a").click(function()
+        {
+            $(this).find("+ ul").slideToggle("fast");
+
+        });
+    });
+
+</script>
+
+<style>
+    #menulist li {
+        list-style: none;
+    }
+
+    #menulist, #menulist ul {
+        list-style: none outside none;
+        padding: 3px;
+    }
+    #menulist, #menulist ul {
+        list-style: none;
+    }
+    #menulist a {
+        color: #010101;
+        display: block;
+        font-weight: bold;
+        padding: 0.5em 1em;
+        text-decoration: none;
+        text-align: left;
+    }
+    #menulist ul a {
+        color: #666;
+        font-weight: normal;
+        text-decoration: none;
+        text-align: left !important;
+    }
+
+    #menulist ul a:hover {
+        text-decoration: underline;
+        border-color: #BBBBBB;
+        color: #711515;
+        background-image: -moz-linear-gradient(center top, #ffffff , #ECECEC );
+    }
+    table#listing .tr-even td {
+        color: #678197;
+        font-size: 13px;
+        font-weight: normal;
+        padding: 0.5em 0.5em !important;
+        text-align: center;
+    }
+</style>
+
+
+<div id="locations_with_radius">
+
+</div>
+<!-- =============================================qmr edit================== -->
+<span>
+<div style="width:400px;">
+
+  <ul id="menulist">
+
+    <li>
+      <a xxx="">My List </a>
+      <%list=CustomerList.where("customer_id = ?",current_user.id)%>
+      <ul id="menulist">
+        <%unless list.blank?%>
+            <%list.each do |lname|%>
+                <li>
+                        <%=link_to "#{lname.list_name}" ,customer_my_list_path(:cust_list_id=>"#{lname.id}"),:remote =>true %>
+                </li>
+            <%end%>
+        <%end%>
+      </ul>
+
+    </li>
+    <li>
+      <%@store_list=CustomerStore.count_store_list(current_user)%>
+      <%unless @store_list.blank?%>
+          <a xxx=""> My Store List(<%= @store_list.count %>)  </a>
+
+          <ul id="menulist">
+            <%@store_list.each do |i|%>
+
+                <li>
+                  <%=link_to "#{Store.find(i.store_id).store_name}" ,"#",:onclick=>"view_category_list(#{i.store_id})" %>
+                </li>
+
+            <%end%>
+          </ul>
+      <%else%>
+          <a xxx=""> My Store List(0) </a>
+      <%end%>
+
+
+    </li>
+    <li>
+      <a xxx="">My Purshared List </a>
+      <ul id="menulist">
+
+        <li>
+          <a xxx="">1</a>
+
+          <ul id="menulist">
+
+            <li>
+              2
+            </li>
+
+          </ul>
+        </li>
+
+      </ul>
+
+    </li>
+    <li>
+      <a xxx="">My Recent Ordered List</a>
+      <ul id="menulist">
+
+        <li>
+          <a xxx="">1</a>
+
+          <ul id="menulist">
+
+            <li>
+              2
+            </li>
+
+          </ul>
+        </li>
+
+      </ul>
+
+    </li>
+
+  </ul>
+  <!-- ========================== -->
+
+</div>
+
+</span>
+
+
+
+
+
+
+
+

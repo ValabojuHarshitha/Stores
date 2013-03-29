@@ -1,0 +1,104 @@
+<script>
+    $(document).ready(function()
+    {
+        $("#coursecat > li > a").not(":first").find("+ ul").slideUp(1);
+        $("#coursecat > li > a").click(function()
+        {
+            $(this).find("+ ul").slideToggle("fast");
+
+        });
+    });
+
+</script>
+
+<style>
+    #coursecat li {
+        list-style: none;
+    }
+
+    #coursecat, #coursecat ul {
+        list-style: none outside none;
+        padding: 3px;
+    }
+    #coursecat, #coursecat ul {
+        list-style: none;
+    }
+    #coursecat a {
+        color: #010101;
+        display: block;
+        font-weight: bold;
+        padding: 0.5em 1em;
+        text-decoration: none;
+        text-align: left;
+    }
+    #coursecat ul a {
+        color: #666;
+        font-weight: normal;
+        text-decoration: none;
+        text-align: left !important;
+    }
+
+    #coursecat ul a:hover {
+        text-decoration: underline;
+        border-color: #BBBBBB;
+        color: #711515;
+        background-image: -moz-linear-gradient(center top, #ffffff , #ECECEC );
+    }
+    table#listing .tr-even td {
+        color: #678197;
+        font-size: 13px;
+        font-weight: normal;
+        padding: 0.5em 0.5em !important;
+        text-align: center;
+    }
+</style>
+
+<div id="locations_with_radius">
+
+</div>
+<!-- =============================================qmr edit================== -->
+
+<div style="width:400px;">
+  <% store_array = []%>
+  <% @store=Store.all%>
+  <%  @category_types=CategoryType.all%>
+  <% @store.map{|i| store_array << i.id}%>
+  <!-- ====================== -->
+  <% logger.info"________________#{store_array}"%>
+
+  <ul id="coursecat">
+    <% unless @category_types.nil?%>
+        <% @category_types.each do |list|%>
+            <li>
+              <a xxx=""><%= list.name%></a>
+
+              <% @categry=Category.where("category_type_id='#{list.id}' AND parent_id IS NULL ")%>
+
+
+              <ul id="coursecat">
+                <%@categry.each do |list1|%>
+                    <li>
+                      <a xxx=""><%= list1.category_name%></a>
+                      <% @sublvl=Category.where("parent_id='#{list1.id}'")%>
+                      <ul id="coursecat">
+                        <%@sublvl.each do |sub_lvl|%>
+                            <li>
+                              kk<%= sub_lvl.category_name%>
+                            </li>
+                        <%end%>
+                      </ul>
+                    </li>
+                <%end%>
+              </ul>
+
+            </li>
+        <%end%>
+    <%end%>
+  </ul>
+  <!-- ========================== -->
+
+</div>
+
+</span>
+
+

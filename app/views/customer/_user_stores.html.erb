@@ -1,0 +1,58 @@
+<style>
+    #list_name {
+        display:none;
+    }
+</style>
+<script>
+    $("input[type='radio']").change(function(){
+
+        if($(this).val()=="1")
+        {
+            $("#list_name").show();
+        }
+        else
+        {
+            $("#list_name").hide();
+        }
+
+    });
+    $("form").submit(function() {
+        //alert($("#add_list_1").val())
+        if($("input:radio:checked").val()==1)  {
+            if ($("#list_name").val() != "" ) {
+                //$("span").text("Validated...").show();
+                allVals = [];
+                alert("dsadasdasd" + allVals);
+                return true;
+            }
+            else
+            {
+                //$("span").text("Not valid!").show().fadeOut(1000);
+                alert("Please List Name")
+                return false;
+            }
+        }
+    });
+
+</script>
+
+<div id="check">
+  <%#=@s=@a.map(&:to_i)%>  <%#=@s.class%>
+  <%= @a %>
+  <%=form_tag  customer_fav_list_path do %>
+  <%#= form_tag({:action => 'fav_list'}, {:id => 'anID'}) do %>
+      <%@a.each do |i|%>
+          <%@it=Item.find(i)%>
+          <%=check_box_tag "item","#{i}",false,:onclick=>"removeItems(#{@it.store_category_id},this.value)"%> <%=i%><br/>
+          <%= hidden_field_tag "item_ids[]",  i %>
+      <%end%>
+      Add as Fav List    Yes<%=radio_button_tag "add_list" ,1%>
+      No <%=radio_button_tag "add_list" ,0%>
+      <%=text_field_tag "list_name"%>
+      <%#=hidden_field_tag "selected_arry",@a%>  <!--28 commented-->
+      <%#=hidden_field_tag "selected_arry", @a%>
+
+      params[:item_arry]
+      <%= submit_tag "submit" %>
+  <%end%>
+</div>

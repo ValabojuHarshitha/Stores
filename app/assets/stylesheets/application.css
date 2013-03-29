@@ -1,0 +1,54 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+ * or vendor/assets/stylesheets of plugins, if any, can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the top of the
+ * compiled file, but it's generally better to create a new file per style scope.
+ *
+ *= require_self
+ *= require_tree .
+ */
+@import "layout_block";
+#left_block {
+	float: left;
+	width: 20%;
+	border: 1px solid #ccc;
+	min-height: 200px;
+}
+#content_block {
+	float: left;
+	width: 51%;
+	border: 1px solid #ccc;
+	padding-left: 3%;
+	min-height: 200px;
+	margin: 0 1% 0 1%;
+	margin:0 auto;
+}
+#right_block {
+	float: left;
+	width: 20%;
+	border: 1px solid #ccc;
+	padding-left: 3%;
+	min-height: 200px;
+}
+
+.row-fluid .span2 {
+    background: none !important;
+    height: 90%;
+    
+}
+#store_Search{
+	select{
+		width:100px;
+		height:25px;
+	}
+}
+.span2 .right_bar{
+	height: 40%;
+	width: 100%;
+	background: none repeat scroll 0 0 rgba(255, 255, 255, 0.698);
+    box-shadow: 0 0 5px 1px rgba(0, 0, 0, 0.1);
+}

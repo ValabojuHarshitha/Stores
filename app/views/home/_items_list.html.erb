@@ -1,0 +1,45 @@
+<style>
+  .show-grid [class*="span"] {
+    background-color: #EEEEEE;
+    border-radius: 3px 3px 3px 3px;
+    line-height: 20px;
+    min-height: 0px;height:32px;
+    font-size:13px;
+    text-align: center;
+    margin:3px 0 0 0;
+}
+h1, h2, h3, h4, h5, h6 {margin:4px 0;}
+.row-fluid .span1 { width: 6.983%;border:1px solid #DFDFDF;min-height:0px;height:25px;}
+.row-fluid .span4{width: 21.624%;border:1px solid #DFDFDF;min-height:0px;height:25px;}
+.row-fluid .span6{ width: 33.718%;border:1px solid #DFDFDF;min-height:0px;height:25px;}
+</style>
+
+<%unless @sets.blank?%>
+
+<div class="row-fluid show-grid">
+  <%=form_tag home_select_items_path,:remote=>true do%>
+  <div id="item_list" class="span12">
+    <div class="span1"><h6></h6></div><div class="span6"><h6>Item</h6></div><div class="span4"><h6>Store</h6></div>
+    <div class="span4"><h6>Location</h6></div><div class="span1"><h6>Radius</h6></div>
+    <div class="span1"><h6>Price</h6></div>
+  </div>
+
+ <%@sets.each do |i|%>
+    <div id="item_list" class="span12">
+    <div class="span1"><%=check_box_tag 'item_check',i['item_id'].to_i, false,:onchange=>"$.ajax({url: '../home/sub_category',data: 'category=' + value})"%></div>
+    <div class="span6"><%=i['item_name']%></div>
+    <div class="span4"><%=i['store_name']%></div>
+    <div class="span4"><%=Location.find(i['destination_id']).location_name%></div>
+    <div class="span1"><%=i['radius']%></div>
+    <div class="span1"><%=i['price']%></div>
+    </div>
+<%end%>
+<%end%>
+</div>
+
+<%else%>
+No Items Found
+<%end%>
+
+
+         

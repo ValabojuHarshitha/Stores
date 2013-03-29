@@ -1,0 +1,44 @@
+<style>
+  .row-fluid .span4 {
+    width: 18.624%;
+}
+ h5{font-size:12px;}
+ p{font-size:10px; }
+.row-fluid [class*="span"]:first-child {
+    margin-left: 1.8%;
+}
+.row-fluid .span10 {
+    height: auto;
+    width: 64%;
+}
+.thumbnail:hover{border-color:#0088CC}
+</style>
+
+<div class="row-fluid">
+     
+      <%=paginate @storeitems,:remote => true %>
+
+      <ul class="thumbnails">
+            <%@storeitems.each do |store|%>
+              <li class="span4">
+                <div class="thumbnail">
+                  <%= image_tag('itemicon.jpg',:border=>"none")%>
+                  <div class="caption">
+                    <%unless store.item_id.blank?%>
+                    <%item=Item.find(store.item_id)%>
+                    <h5><%= truncate(item.item_name,:length=>20)%></h5>
+                    <p>This item is from <%=Category.find(item.category_id).category_name unless item.category_id.blank?%> category</p>
+                    <%else%>
+                    <h3>Wrong Item</h3>
+                    <p>No Category</p>
+                    <%end%>
+               <!--     <p><a href="#" class="btn btn-primary">Action</a> <a href="#" class="btn">Action</a></p>  -->
+                  </div>
+                </div>
+              </li>
+              <%end%>
+           </ul>
+   <%=paginate @storeitems,:remote => true %>
+</div>
+
+<%#------------------------------------my----------------------------------%>

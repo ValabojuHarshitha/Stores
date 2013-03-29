@@ -1,0 +1,32 @@
+
+
+  <%#= render 'customer/locationwise_user_stores_list'%>
+  <%@store_list=CustomerStore.count_store_list(current_user)%>
+
+  <%if @store_list.blank?%>
+      1
+      <%@user_locations=Store.where("location_id = ?" ,current_user.location_id).select("store_name,store_address,id")%>
+
+      <%@user_locations.each do |i|%>
+          <ul style="border: 1px green">
+            <li><%=i.store_name%></li>
+            <li><%=i.store_address%></li>
+            <li><%= link_to "Add Store To My Store List" ,'#',:onclick=>"add_list(#{i.id})"%> </li>
+          </ul>
+      <%end%>
+  <%else%>
+
+      <%@other_store_list=Store.find_by_sql("SELECT s.id,s.store_name,s.store_address
+FROM stores s
+WHERE   s.location_id=#{current_user.location_id} and  NOT EXISTS(SELECT * FROM customer_stores cs
+                 WHERE s.id =cs.store_id  and cs.customer_id=#{current_user.id})")%>
+      <%@other_store_list.each do |i|%>
+          <ul style="border: 1px green">
+            <li><%=i.store_name%></li>
+            <li><%=i.store_address%></li>
+            <li><%= link_to "Add Store To My Store List" ,'#',:onclick=>"add_list(#{i.id})"%> </li>
+          </ul>
+      <%end%>
+  <%end%>
+   ==========================
+

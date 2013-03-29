@@ -1,0 +1,26 @@
+<style>
+  #chk{width:10px;}
+  #stor{width:20%;}
+  #loc{width:20%;}
+  #price{width:20%;}
+</style>
+
+<%= select_tag "category_id", options_from_collection_for_select(@category, "id", "name"),:prompt=>'select Categories'%><%#  :onchange=>"$.ajax({url: '../home/sub_category',data: 'category=' + value})"%>
+
+<%unless @sets.blank?%>
+
+<span id="chk"></span><span id="stor">Store</span><span id="loc">Location</span>
+  <%=form_tag home_save_stores_path,:remote=>true do%>
+
+          <%@sets.each do |i|%>
+           <span id="chk"><%= check_box_tag "send_item[item_ids][]",i['item_id'].to_i, false , :onclick=>"$.ajax({url: '../home/googlemaps',data: 'store_id=' + #{i['id']}})"%></span>
+           <span id="stor"><%=i['store_name']%></span>
+           <span id="loc"><%=Location.find(i['destination_id']).location_name%></span><br/>
+          <%end%>
+  <%end%>
+
+
+<%else%>
+No Items Found
+<%end%>
+

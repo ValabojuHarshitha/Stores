@@ -1,0 +1,21 @@
+<!--<table border="1">
+  <tr><td>select</td><td>Item</td><td>Item Price</td><td>Quantity</td><td>total Price</td></tr>-->
+  <%=form_tag customer_buy_path do %>
+      <%@my_list.each do |j|  %>
+          <%@it=Item.find(j)%>
+
+          <%=check_box_tag "items#{@it.id}","#{@it.id}"%>
+          <%=@it.item_name%>
+          <%=@it.price%>
+          <%@quantity= [1,2,3,4,5,6]%>
+          <%=select_tag "quantity#{@it.id}",options_for_select(@quantity.collect{|u| u}),:onchange=>"$.ajax({url: '../customer/quantity',data: 'quantity=' + value + '&price=' + #{@it.price} + '&item_id=' + #{@it.id} })"%>
+          <%#=select_tag "quantity",options_for_select(@quantity.collect{|u| u}),:onchange=>"alert('swathi')"%>
+
+          <div id="quantitys<%=@it.id%>"> </div>
+          <br/>
+
+      <%end%>
+      <%=submit_tag "Pay"%>
+  <%end%>
+  <!--</table>-->
+<%#=@my_list.inspect%>

@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  order_number: MyString
+  total_price: 1
+  payment_completed: false
+  payment_type: MyString
+  payment_approved: false
+
+two:
+  order_number: MyString
+  total_price: 1
+  payment_completed: false
+  payment_type: MyString
+  payment_approved: false

@@ -1,0 +1,3 @@
+<%@country=Country.find(101)%><%@states=@country.states%><%#@cities=@country.cities%>
+<%= f.select :state_id, options_for_select(@states.collect{|u| [u.state_name,u.state_id]}),{},:onChange=>"$.ajax({url: '../home/city',data: 'state_id=' + value});"%>
+<div id="city_par"> <%= f.select :city_id, options_for_select(@cities.collect{|u| [u.city_name,u.city_id]}),:prompt=>'select city'%></div>

@@ -1,0 +1,47 @@
+<h2>Sign up</h2>
+
+<%= form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f| %>
+  <%= devise_error_messages! %>
+
+  <div><%= f.label :email %><br />
+  <%= f.email_field :email %></div>
+
+  <div><%= f.label :password %><br />
+  <%= f.password_field :password %></div>
+
+  <div><%= f.label :password_confirmation %><br />
+  <%= f.password_field :password_confirmation %></div>
+
+<div class="field"><label>Role</label><br />
+  <%= f.select :role_id,options_for_select(Role.all.collect{|u| [u.role_name,u.id]}) %></div>
+    <div class="field"><label>State</label>
+      <%#= f.select :location_id,options_for_select(Location.all.collect{|u| [u.location_name,u.id]})%>
+      <%@country=Country.find(101)%><%#@states=@country.states.first%><%#@cities=@country.cities%>
+      <%#= f.select :state_id, options_for_select(@states.collect{|u| [u.state_name,u.state_id]}),{},:onChange=>"$.ajax({url: '../home/city',data: 'state_id=' + value});"%>
+      <%@states=State.where(:state_id => 1611)%>
+      <%= f.select :state_id, options_for_select(@states.collect{|u| [u.state_name,u.state_id]})%>
+      <%@cities=City.where(:city_id => 3493)%>
+      <%= f.select :city_id, options_for_select(@cities.collect{|u| [u.city_name,u.city_id]})%></div>
+     <div id="city_par">
+
+       <% if params[:state_id]%>
+           <%= f.select :city_id,:prompt=>'select city'%>
+           jjjjj
+       <%end%>
+        </div>
+    <% if params[:state_id]%>
+
+        <%#= f.select :city_id,{params},:prompt=>'select city'%>
+
+    <%end%>
+    <div class="field"><label>Location</label>
+      <%= f.select :location_id,options_for_select(Location.all.collect{|u| [u.location_name,u.id]})%></div>
+    <div class="field"><label>Address</label>
+      <%= f.text_area :address,:size=>"15" %></div>
+    <div class="field"><label>Street</label>
+      <%= f.text_field :street %></div>
+  <div><%= f.submit "Sign up" %></div>
+<% end %>
+
+<%= render "devise/shared/links" %>
+
